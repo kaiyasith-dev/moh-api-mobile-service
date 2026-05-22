@@ -1,0 +1,19 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /moh-api-mobile-service
+
+spring:
+  application:
+    name: moh-api-mobile-service
+
+app:
+  integration-service:
+    url: http://localhost:8001/moh-api-integration-service
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
