@@ -1,6 +1,6 @@
 package apb.co.la.moh.api.mobile.service.dto;
 
-import apb.co.la.moh.api.mobile.service.enums.MobileResultCode;
+import apb.co.la.moh.api.mobile.service.enums.ResultCode;
 import apb.co.la.moh.api.mobile.service.util.RequestUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,19 +16,52 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MobileResponse<T> {
+
     private MobileHeader header;
     private T body;
 
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MobileHeader {
+
+        private String timestamp;
+        private String code;
+        private String message;
+        private String status;
+        private String traceId;
+    }
+
     public static <T> MobileResponse<T> success(T body) {
-        return buildResponse(MobileResultCode.SUCCESS, MobileResultCode.SUCCESS.getMessage(), body);
+        return buildResponse(
+                ResultCode.SUCCESS,
+                ResultCode.SUCCESS.getMessage(),
+                body
+        );
     }
 
-    public static <T> MobileResponse<T> error(MobileResultCode resultCode, String customMessage) {
-        return buildResponse(resultCode, customMessage != null ? customMessage : resultCode.getMessage(), null);
+    public static <T> MobileResponse<T> error(
+            ResultCode code,
+            String message
+    ) {
+        return buildResponse(
+                code,
+                message != null
+                        ? message
+                        : code.getMessage(),
+                null
+        );
     }
 
-    private static <T> MobileResponse<T> buildResponse(MobileResultCode resultCode, String message, T body) {
+    private static <T> MobileResponse<T> buildResponse(
+            ResultCode resultCode,
+            String message,
+            T body
+    ) {
+
         String traceId = RequestUtil.getCurrentTraceId();
+
         if (traceId == null) {
             traceId = UUID.randomUUID().toString();
         }

@@ -3,7 +3,7 @@ package apb.co.la.moh.api.mobile.service.enums;
 import lombok.Getter;
 
 @Getter
-public enum MobileResultCode {
+public enum ResultCode {
 
     SUCCESS("0000", "01", "Success"),
     HOLD("0001", "02", "Transaction on hold"),
@@ -18,7 +18,7 @@ public enum MobileResultCode {
     private final String status;
     private final String message;
 
-    MobileResultCode(String code, String status, String message) {
+    ResultCode(String code, String status, String message) {
         this.code = code;
         this.status = status;
         this.message = message;

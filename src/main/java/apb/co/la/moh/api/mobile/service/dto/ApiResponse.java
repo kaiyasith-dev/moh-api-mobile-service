@@ -3,7 +3,7 @@ package apb.co.la.moh.api.mobile.service.dto;
 import lombok.Data;
 
 @Data
-public class IntegrationResponse<T> {
+public class ApiResponse<T> {
     private String timestamp;
     private boolean success;
     private String code;
