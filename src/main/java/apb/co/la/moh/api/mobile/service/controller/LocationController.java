@@ -22,12 +22,24 @@ public class LocationController {
 
     @GetMapping
     @Operation(summary = "Get all locations")
-    public ResponseEntity<MobileResponse<Object>> getAllLocations(
-            @Parameter(description = "Page number (starts from 1)") @RequestParam(defaultValue = "1") int page,
-            @Parameter(description = "Number of items per page") @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<MobileResponse<MobileResponse.BodyWithMeta<Object, Object>>> getAllLocations(
+            @Parameter(description = "Page number (starts from 1)")
+            @RequestParam(defaultValue = "1") int page,
+
+            @Parameter(description = "Number of items per page")
+            @RequestParam(defaultValue = "10") int size) {
+
         log.info("GET /api/v1/mobile/locations - Fetching all locations via integration service");
-        ApiResponse<Object> apiResponse = integrationServiceClient.getAllLocations(page, size);
-        return ResponseEntity.ok(MobileResponse.success(apiResponse != null ? apiResponse.getData() : null));
+
+        ApiResponse<Object> apiResponse =
+                integrationServiceClient.getAllLocations(page, size);
+
+        Object data = apiResponse != null ? apiResponse.getData() : null;
+        Object meta = apiResponse != null ? apiResponse.getMeta() : null;
+
+        return ResponseEntity.ok(
+                MobileResponse.success(data, meta)
+        );
     }
 
     @GetMapping("/nearest")
