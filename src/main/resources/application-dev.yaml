@@ -1,0 +1,12 @@
+app:
+  integration-service:
+    url: http://localhost:8001/moh-api-integration-service
+
+swagger:
+  server:
+    dev:
+      enabled: true
+    uat:
+      enabled: false
+    prd:
+      enabled: false

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+        <Property name="CONSOLE_LOG_PATTERN">
+            %clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{${sys:LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n%ex</Property>
+
+        <Property name="node_ip">${spring:spring.application.node.ip}</Property>
+        <Property name="pod_name">${spring:spring.application.pod.name}</Property>
+        <Property name="LOG_FILE_NAME">logs/${node_ip}-${pod_name}-${date:yyyy-MM-dd}.log</Property>
+        <Property name="LOG_FILE_NAME_PATTERN">logs/${node_ip}-${pod_name}-%d{yyyy-MM-dd}-%i.log</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${CONSOLE_LOG_PATTERN}"/>
+<!--            <PatternLayout pattern="${LOG_PATTERN_COLOR}"/>-->
+        </Console>
+
+        <!-- Rolling File Appender -->
+        <RollingFile name="FileAppender"
+                     fileName="${LOG_FILE_NAME}"
+                     filePattern="${LOG_FILE_NAME_PATTERN}">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" />
+                <SizeBasedTriggeringPolicy size="10MB" />
+<!--                <SizeBasedTriggeringPolicy size="1kb" />-->
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+<!--            <DefaultRolloverStrategy max="1"/>-->
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <AsyncLogger name="apb.co.la.moh.api.mobile.service" level="debug"
+                     additivity="false">
+            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender" />
+        </AsyncLogger>
+
+        <Root level="info">
+            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender" />
+        </Root>
+    </Loggers>
+</Configuration>

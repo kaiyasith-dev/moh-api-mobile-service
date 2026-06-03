@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/mobile/locations")
 @RequiredArgsConstructor
-@Tag(name = "Mobile Location", description = "Mobile endpoints for accessing locations")
+@Tag(name = "MOH Hospital Location")
 public class LocationController {
 
     private final ApiServiceClient integrationServiceClient;
@@ -64,14 +64,14 @@ public class LocationController {
         return ResponseEntity.ok(MobileResponse.success(apiResponse != null ? apiResponse.getData() : null));
     }
 
-    @GetMapping("/parent/{parentId}")
-    @Operation(summary = "Get child locations by Parent ID")
-    public ResponseEntity<MobileResponse<Object>> getLocationsByParentId(
-            @Parameter(description = "Parent location ID") @PathVariable String parentId) {
-        log.info("GET /api/v1/mobile/locations/parent/{} - Fetching child locations via integration service", parentId);
-        ApiResponse<Object> apiResponse = integrationServiceClient.getLocationsByParentId(parentId);
-        return ResponseEntity.ok(MobileResponse.success(apiResponse != null ? apiResponse.getData() : null));
-    }
+//    @GetMapping("/parent/{parentId}")
+//    @Operation(summary = "Get child locations by Parent ID")
+//    public ResponseEntity<MobileResponse<Object>> getLocationsByParentId(
+//            @Parameter(description = "Parent location ID") @PathVariable String parentId) {
+//        log.info("GET /api/v1/mobile/locations/parent/{} - Fetching child locations via integration service", parentId);
+//        ApiResponse<Object> apiResponse = integrationServiceClient.getLocationsByParentId(parentId);
+//        return ResponseEntity.ok(MobileResponse.success(apiResponse != null ? apiResponse.getData() : null));
+//    }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get specific location by ID")

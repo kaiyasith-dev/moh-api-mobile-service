@@ -1,0 +1,8 @@
+swagger:
+  server:
+    dev:
+      enabled: true
+    uat:
+      enabled: false
+    prd:
+      enabled: true

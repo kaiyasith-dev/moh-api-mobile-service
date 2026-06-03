@@ -6,10 +6,12 @@ server:
 spring:
   application:
     name: moh-api-mobile-service
-
-app:
-  integration-service:
-    url: http://localhost:8001/moh-api-integration-service
+    node:
+      ip: ${MY_NODE_IP:127.0.0.1}
+    pod:
+      name: ${MY_POD_NAME:${spring.application.name}}
+  profiles:
+    active: ${PROFILE_ACTIVE:dev}
 
 springdoc:
   api-docs:
@@ -17,3 +19,13 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     operationsSorter: method
+
+
+swagger:
+  server:
+    dev:
+      url: http://localhost:8001
+    uat:
+      url: https://owa.apb.com.la:442
+    prd:
+      url: https://apb.services.pro
