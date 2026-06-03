@@ -20,7 +20,6 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
 
-
 swagger:
   server:
     dev:
@@ -29,3 +28,10 @@ swagger:
       url: https://owa.apb.com.la:442
     prd:
       url: https://apb.services.pro
+
+app:
+  cors:
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    max-age: 3600

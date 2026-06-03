@@ -1,0 +1,24 @@
+2026-06-03 10:22:37.438  INFO DESKTOP-9L69FMB --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.3.Final
+2026-06-03 10:22:37.470  INFO DESKTOP-9L69FMB --- [           main] a.c.l.m.a.m.s.Application                : Starting Application using Java 17.0.12 with PID 16088 (C:\Users\ksdev\Desktop\api\moh-api-mobile-service\target\classes started by ksdev in C:\Users\ksdev\Desktop\api\moh-api-mobile-service)
+2026-06-03 10:22:37.472 DEBUG DESKTOP-9L69FMB --- [           main] a.c.l.m.a.m.s.Application                : Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-03 10:22:37.473  INFO DESKTOP-9L69FMB --- [           main] a.c.l.m.a.m.s.Application                : The following 1 profile is active: "uat"
+2026-06-03 10:22:38.058  INFO DESKTOP-9L69FMB --- [           main] o.s.c.c.s.GenericScope                   : BeanFactory id=0e240e1a-40b5-32cd-a236-2cdd03622ea9
+2026-06-03 10:22:38.185  INFO DESKTOP-9L69FMB --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8002 (http)
+2026-06-03 10:22:38.190  INFO DESKTOP-9L69FMB --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8002"]
+2026-06-03 10:22:38.191  INFO DESKTOP-9L69FMB --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2026-06-03 10:22:38.191  INFO DESKTOP-9L69FMB --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.54]
+2026-06-03 10:22:38.221  INFO DESKTOP-9L69FMB --- [           main] o.a.c.c.C.[.[.[/moh-api-mobile-service]  : Initializing Spring embedded WebApplicationContext
+2026-06-03 10:22:38.221  INFO DESKTOP-9L69FMB --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 726 ms
+2026-06-03 10:22:38.384  WARN DESKTOP-9L69FMB --- [           main] o.s.c.o.s.SpringMvcContract              : [OpenFeign Warning] Feign method 'public abstract apb.co.la.moh.api.mobile.service.dto.ApiResponse<java.lang.Object> apb.co.la.moh.api.mobile.service.client.ApiServiceClient.getLocationById(java.lang.String)' is declared as GET with parameters, but none of the parameters are annotated (e.g. @RequestParam, @RequestHeader, @PathVariable, etc). This may result in fallback to POST at runtime. Consider explicitly annotating parameters.
+2026-06-03 10:22:38.384  WARN DESKTOP-9L69FMB --- [           main] o.s.c.o.s.SpringMvcContract              : [OpenFeign Warning] Feign method 'public abstract apb.co.la.moh.api.mobile.service.dto.ApiResponse<java.lang.Object> apb.co.la.moh.api.mobile.service.client.ApiServiceClient.getLocationsByParentId(java.lang.String)' is declared as GET with parameters, but none of the parameters are annotated (e.g. @RequestParam, @RequestHeader, @PathVariable, etc). This may result in fallback to POST at runtime. Consider explicitly annotating parameters.
+2026-06-03 10:22:38.692  INFO DESKTOP-9L69FMB --- [           main] o.s.b.a.e.w.EndpointLinksResolver        : Exposing 1 endpoint beneath base path '/actuator'
+2026-06-03 10:22:38.725  INFO DESKTOP-9L69FMB --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8002"]
+2026-06-03 10:22:38.733  INFO DESKTOP-9L69FMB --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8002 (http) with context path '/moh-api-mobile-service'
+2026-06-03 10:22:38.769  INFO DESKTOP-9L69FMB --- [           main] a.c.l.m.a.m.s.Application                : Started Application in 1.61 seconds (process running for 2.085)
+2026-06-03 10:22:38.773  WARN DESKTOP-9L69FMB --- [           main] o.s.c.e.SpringDocAppInitializer          : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-06-03 10:22:38.773  WARN DESKTOP-9L69FMB --- [           main] o.s.c.e.SpringDocAppInitializer          : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-06-03 10:22:39.072  INFO DESKTOP-9L69FMB --- [n(3)-10.2.6.191] o.a.c.c.C.[.[.[/moh-api-mobile-service]  : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-03 10:22:39.072  INFO DESKTOP-9L69FMB --- [n(3)-10.2.6.191] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2026-06-03 10:22:39.073  INFO DESKTOP-9L69FMB --- [n(3)-10.2.6.191] o.s.w.s.DispatcherServlet                : Completed initialization in 0 ms
+2026-06-03 10:22:45.610  INFO DESKTOP-9L69FMB --- [ionShutdownHook] o.s.b.w.e.t.GracefulShutdown             : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-03 10:22:45.665  INFO DESKTOP-9L69FMB --- [tomcat-shutdown] o.s.b.w.e.t.GracefulShutdown             : Graceful shutdown complete
