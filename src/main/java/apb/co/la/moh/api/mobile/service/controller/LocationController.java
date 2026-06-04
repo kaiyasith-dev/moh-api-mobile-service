@@ -3,9 +3,10 @@ package apb.co.la.moh.api.mobile.service.controller;
 import apb.co.la.moh.api.mobile.service.client.ApiServiceClient;
 import apb.co.la.moh.api.mobile.service.dto.ApiResponse;
 import apb.co.la.moh.api.mobile.service.dto.MobileResponse;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,69 +17,73 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/mobile/locations")
 @RequiredArgsConstructor
 @Tag(name = "MOH Hospital Location")
+@SecurityRequirement(name = "X-Signature")
+@SecurityRequirement(name = "X-Timestamp")
 public class LocationController {
 
     private final ApiServiceClient integrationServiceClient;
 
-    @GetMapping
-    @Operation(summary = "Get all locations")
-    public ResponseEntity<MobileResponse<MobileResponse.BodyWithMeta<Object, Object>>> getAllLocations(
-            @Parameter(description = "Page number (starts from 1)")
-            @RequestParam(defaultValue = "1") int page,
+    @Data
+    public static class PaginationReq {
+        @Schema(description = "Page number (starts from 1)", example = "1")
+        private int page = 1;
+        @Schema(description = "Number of items per page", example = "10")
+        private int size = 10;
+    }
 
-            @Parameter(description = "Number of items per page")
-            @RequestParam(defaultValue = "10") int size) {
+    @Data
+    public static class NearestReq {
+        @Schema(description = "Latitude of the user's location", example = "18.0245345")
+        private Double latitude;
+        @Schema(description = "Longitude of the user's location", example = "102.653008")
+        private Double longitude;
+        @Schema(description = "Search radius in kilometers", example = "5.000")
+        private Double radiusKm;
+    }
 
-        log.info("GET /api/v1/mobile/locations - Fetching all locations via integration service");
+    @Data
+    public static class SearchReq {
+        @Schema(description = "Search keyword for hospital name (English or Lao)", example = "ມະໂຫສົດ")
+        private String keyword;
+        @Schema(description = "Page number (starts from 1)", example = "1")
+        private int page = 1;
+        @Schema(description = "Number of items per page", example = "10")
+        private int size = 10;
+    }
 
-        ApiResponse<Object> apiResponse =
-                integrationServiceClient.getAllLocations(page, size);
+    @Data
+    public static class DetailReq {
+        @Schema(description = "The unique ID of the organization unit/hospital", example = "FV43JisquSm")
+        private String id;
+    }
 
+    @PostMapping
+    public ResponseEntity<MobileResponse<MobileResponse.BodyWithMeta<Object, Object>>> getAllLocations(@RequestBody PaginationReq request) {
+        log.info("POST /api/v1/mobile/locations - Fetching all locations via integration service");
+        ApiResponse<Object> apiResponse = integrationServiceClient.getAllLocations(request);
         Object data = apiResponse != null ? apiResponse.getData() : null;
         Object meta = apiResponse != null ? apiResponse.getMeta() : null;
-
-        return ResponseEntity.ok(
-                MobileResponse.success(data, meta)
-        );
+        return ResponseEntity.ok(MobileResponse.success(data, meta));
     }
 
-    @GetMapping("/nearest")
-    @Operation(summary = "Find nearest hospitals based on GPS coordinates")
-    public ResponseEntity<MobileResponse<Object>> findNearestHospitals(
-            @Parameter(description = "Latitude", example = "18.0245345") @RequestParam Double latitude,
-            @Parameter(description = "Longitude", example = "102.653008") @RequestParam Double longitude,
-            @Parameter(description = "Radius in km", example = "5.000") @RequestParam Double radiusKm) {
-        log.info("GET /api/v1/mobile/locations/nearest - Finding nearest hospitals via integration service");
-        ApiResponse<Object> apiResponse = integrationServiceClient.findNearestHospitals(latitude, longitude, radiusKm);
+    @PostMapping("/nearest")
+    public ResponseEntity<MobileResponse<Object>> findNearestHospitals(@RequestBody NearestReq request) {
+        log.info("POST /api/v1/mobile/locations/nearest - Finding nearest hospitals via integration service");
+        ApiResponse<Object> apiResponse = integrationServiceClient.findNearestHospitals(request);
         return ResponseEntity.ok(MobileResponse.success(apiResponse != null ? apiResponse.getData() : null));
     }
 
-    @GetMapping("/search")
-    @Operation(summary = "Search for locations by keyword")
-    public ResponseEntity<MobileResponse<Object>> searchLocations(
-            @Parameter(description = "Search keyword") @RequestParam(required = false) String keyword,
-            @Parameter(description = "Page number (starts from 1)") @RequestParam(defaultValue = "1") int page,
-            @Parameter(description = "Number of items per page") @RequestParam(defaultValue = "10") int size) {
-        log.info("GET /api/v1/mobile/locations/search - Search locations via integration service");
-        ApiResponse<Object> apiResponse = integrationServiceClient.searchLocations(keyword, page, size);
+    @PostMapping("/search")
+    public ResponseEntity<MobileResponse<Object>> searchLocations(@RequestBody SearchReq request) {
+        log.info("POST /api/v1/mobile/locations/search - Search locations via integration service");
+        ApiResponse<Object> apiResponse = integrationServiceClient.searchLocations(request);
         return ResponseEntity.ok(MobileResponse.success(apiResponse != null ? apiResponse.getData() : null));
     }
 
-//    @GetMapping("/parent/{parentId}")
-//    @Operation(summary = "Get child locations by Parent ID")
-//    public ResponseEntity<MobileResponse<Object>> getLocationsByParentId(
-//            @Parameter(description = "Parent location ID") @PathVariable String parentId) {
-//        log.info("GET /api/v1/mobile/locations/parent/{} - Fetching child locations via integration service", parentId);
-//        ApiResponse<Object> apiResponse = integrationServiceClient.getLocationsByParentId(parentId);
-//        return ResponseEntity.ok(MobileResponse.success(apiResponse != null ? apiResponse.getData() : null));
-//    }
-
-    @GetMapping("/{id}")
-    @Operation(summary = "Get specific location by ID")
-    public ResponseEntity<MobileResponse<Object>> getLocationById(
-            @Parameter(description = "Location ID") @PathVariable String id) {
-        log.info("GET /api/v1/mobile/locations/{} - Fetching location details via integration service", id);
-        ApiResponse<Object> apiResponse = integrationServiceClient.getLocationById(id);
+    @PostMapping("/detail")
+    public ResponseEntity<MobileResponse<Object>> getLocationById(@RequestBody DetailReq request) {
+        log.info("POST /api/v1/mobile/locations/detail - Fetching location details via integration service for ID: {}", request.getId());
+        ApiResponse<Object> apiResponse = integrationServiceClient.getLocationById(request);
         return ResponseEntity.ok(MobileResponse.success(apiResponse != null ? apiResponse.getData() : null));
     }
 }

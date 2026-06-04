@@ -81,11 +81,21 @@ public class OpenApiConfig {
                 .version("1.0.0")
                 .description("""
                         API documentation for Hospital Location Service.
+                        
+                        **🔐 Security Requirements**
+                        This API requires HMAC SHA-256 signature verification.
+                        Formula: `HMAC-SHA256(URI + QueryString + Timestamp + Body, SecretKey)`
+                        
+                        **Example Headers:**
+                        - `X-Timestamp`: 1715856000
+                        
+                        - `X-Signature`: 87463eb7e2ee09b19c2a2315a4b50963611969619e9be89dc0eade7c58635595
+
 
                         **Environments**
                         - 🛠 DEV  : http://localhost:8002
                         - 🧪 UAT  : https://owa.apb.com.la:442
-                        - 🚀 PRD  : http://apb.services.pro
+                        - 🚀 PRD  : https://apb.services.pro
                         """)
                 .contact(new Contact()
                         .name("API Team")

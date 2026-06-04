@@ -23,7 +23,7 @@ springdoc:
 swagger:
   server:
     dev:
-      url: http://localhost:8001
+      url: http://localhost:8002
     uat:
       url: https://owa.apb.com.la:442
     prd:
@@ -35,3 +35,9 @@ app:
     allowed-methods: "*"
     allowed-headers: "*"
     max-age: 3600
+
+  security:
+    hmac:
+      enabled: true
+      secret-key: "572a0f36bf8e216ee85c5b69ac40f811539a27099acf307ab60c6052b09b1f28"
+      timeout-seconds: 60

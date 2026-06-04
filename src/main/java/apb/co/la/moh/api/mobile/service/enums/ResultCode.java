@@ -11,6 +11,7 @@ public enum ResultCode {
     ERROR("5000", "04", "Internal server error"),
     EXTERNAL_API_ERROR("5002", "04", "External API error"),
     VALIDATION_ERROR("4000", "04", "Invalid request parameters"),
+    UNAUTHORIZED("4001", "04", "Unauthorized request"),
     DATA_NOT_FOUND("4004", "04", "Resource not found"),
     METHOD_NOT_ALLOWED("4005", "04", "Method not allowed");
 
