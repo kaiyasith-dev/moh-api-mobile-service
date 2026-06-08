@@ -10,3 +10,9 @@ swagger:
       enabled: false
     prd:
       enabled: false
+
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false
