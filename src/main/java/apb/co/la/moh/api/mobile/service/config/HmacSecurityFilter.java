@@ -38,6 +38,11 @@ public class HmacSecurityFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
+
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
+
         return !isHmacEnabled ||
                 path.contains("/swagger-ui") ||
                 path.contains("/v3/api-docs") ||

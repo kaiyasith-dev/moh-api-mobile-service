@@ -1,8 +1,12 @@
+app:
+  integration-service:
+    url: http://apb.services.pro/moh-api-integration-service
+
 swagger:
   server:
     dev:
-      enabled: true
+      enabled: false
     uat:
       enabled: false
     prd:
-      enabled: true
+      enabled: false

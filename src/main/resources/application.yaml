@@ -1,15 +1,60 @@
+#server:
+#  port: 8002
+#  servlet:
+#    context-path: /moh-api-mobile-service
+#
+#spring:
+#  application:
+#    name: moh-api-mobile-service
+#    node:
+#      ip: ${MY_NODE_IP:127.0.0.1}
+#    pod:
+#      name: ${MY_POD_NAME:${spring.application.name}}
+#  profiles:
+#    active: ${PROFILE_ACTIVE:dev}
+#
+#springdoc:
+#  api-docs:
+#    path: /v3/api-docs
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    operationsSorter: method
+#
+#swagger:
+#  server:
+#    dev:
+#      url: http://localhost:8002
+#    uat:
+#      url: https://owa.apb.com.la:442
+#    prd:
+#      url: https://apb.services.pro
+#
+#app:
+#  cors:
+#    allowed-origins: "*"
+#    allowed-methods: "*"
+#    allowed-headers: "*"
+#    max-age: 3600
+#
+#  security:
+#    hmac:
+#      enabled: true
+#      secret-key: "572a0f36bf8e216ee85c5b69ac40f811539a27099acf307ab60c6052b09b1f28"
+#      timeout-seconds: 60
+
 server:
   port: 8002
   servlet:
-    context-path: /moh-api-mobile-service
+    context-path: ${SERVER_CONTEXT_PATH:/api/v2/moh-api-mobile-service}
 
 spring:
   application:
-    name: moh-api-mobile-service
+    name: ${APP_NAME:moh-api-mobile-service}
     node:
       ip: ${MY_NODE_IP:127.0.0.1}
     pod:
       name: ${MY_POD_NAME:${spring.application.name}}
+
   profiles:
     active: ${PROFILE_ACTIVE:dev}
 
@@ -23,21 +68,21 @@ springdoc:
 swagger:
   server:
     dev:
-      url: http://localhost:8002
+      url: ${SWAGGER_SERVER_DEV_URL:http://localhost:8002}
     uat:
-      url: https://owa.apb.com.la:442
+      url: ${SWAGGER_SERVER_UAT_URL:https://owa.apb.com.la:442}
     prd:
-      url: https://apb.services.pro
+      url: ${SWAGGER_SERVER_PRO_URL:https://apb.services.pro}
 
 app:
   cors:
-    allowed-origins: "*"
-    allowed-methods: "*"
-    allowed-headers: "*"
-    max-age: 3600
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:*}
+    allowed-methods: ${CORS_ALLOWED_METHODS:*}
+    allowed-headers: ${CORS_ALLOWED_HEADERS:*}
+    max-age: ${CORS_MAX_AGE:3600}
 
   security:
     hmac:
-      enabled: true
-      secret-key: "572a0f36bf8e216ee85c5b69ac40f811539a27099acf307ab60c6052b09b1f28"
-      timeout-seconds: 60
+      enabled: ${HMAC_ENABLED:false}
+      secret-key: ${HMAC_SECRET_KEY:572a0f36bf8e216ee85c5b69ac40f811539a27099acf307ab60c6052b09b1f28}
+      timeout-seconds: ${HMAC_TIMEOUT_SECONDS:60}
