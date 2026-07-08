@@ -33,6 +33,8 @@ public class LocationController {
 
     @Data
     public static class NearestReq {
+        @Schema(description = "Administrative level to filter organization units. If omitted, all levels are included.")
+        private Integer level;
         @Schema(description = "Latitude of the user's location", example = "18.0245345")
         private Double latitude;
         @Schema(description = "Longitude of the user's location", example = "102.653008")
