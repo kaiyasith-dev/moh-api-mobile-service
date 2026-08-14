@@ -1,6 +1,6 @@
 app:
   integration-service:
-    url: http://apb.services.uat:39702/moh-api-integration-service
+    url: http://apb.services.uat:39702/api/v2/int/moh-location
 
 swagger:
   server:

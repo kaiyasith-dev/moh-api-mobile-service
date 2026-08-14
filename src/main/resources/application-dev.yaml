@@ -1,6 +1,6 @@
 app:
   integration-service:
-    url: http://localhost:8001/moh-api-integration-service
+    url: http://localhost:8001/api/v2/int/moh-location
 
 swagger:
   server:

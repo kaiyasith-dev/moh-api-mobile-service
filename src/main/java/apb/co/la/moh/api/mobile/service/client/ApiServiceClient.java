@@ -9,15 +9,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "integration-service", url = "${app.integration-service.url}", configuration = FeignConfig.class)
 public interface ApiServiceClient {
 
-    @PostMapping("/api/v1/locations")
+//    @PostMapping("/api/v1/locations")
+//    ApiResponse<Object> getAllLocations(@RequestBody Object request);
+//
+//    @PostMapping("/api/v1/locations/nearest")
+//    ApiResponse<Object> findNearestHospitals(@RequestBody Object request);
+//
+//    @PostMapping("/api/v1/locations/search")
+//    ApiResponse<Object> searchLocations(@RequestBody Object request);
+//
+//    @PostMapping("/api/v1/locations/detail")
+//    ApiResponse<Object> getLocationById(@RequestBody Object request);
+
+    @PostMapping("/all")
     ApiResponse<Object> getAllLocations(@RequestBody Object request);
 
-    @PostMapping("/api/v1/locations/nearest")
+    @PostMapping("/nearest")
     ApiResponse<Object> findNearestHospitals(@RequestBody Object request);
 
-    @PostMapping("/api/v1/locations/search")
+    @PostMapping("/search")
     ApiResponse<Object> searchLocations(@RequestBody Object request);
 
-    @PostMapping("/api/v1/locations/detail")
+    @PostMapping("/detail")
     ApiResponse<Object> getLocationById(@RequestBody Object request);
 }
